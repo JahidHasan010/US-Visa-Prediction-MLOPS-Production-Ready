@@ -20,7 +20,7 @@ git push origin main
 
 # How to run?
 
-conda create -p venvvisa python=3.8 -y
+conda create -p venv python=3.8 -y
 
 conda activate venv/
 
