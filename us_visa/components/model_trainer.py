@@ -92,5 +92,6 @@ class ModelTrainer:
             )
             logging.info(f"Model trainer artifact: {model_trainer_artifact}")
             return model_trainer_artifact
+            
         except Exception as e:
             raise USvisaException(e, sys) from e

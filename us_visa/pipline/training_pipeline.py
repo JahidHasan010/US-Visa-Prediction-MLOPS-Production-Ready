@@ -163,18 +163,18 @@ class TrainPipeline:
 
             model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
             logging.info("Model training succesfully completed")
+
+            logging.info("Start model evaluation ")
+            model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
+                                                                    model_trainer_artifact=model_trainer_artifact)
+            logging.info("Model evaluation succesfully completed")
+
+            if not model_evaluation_artifact.is_model_accepted:
+                logging.info(f"Model not accepted.")
+                return None
             
-
-          #  model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
-                                                                   ## model_trainer_artifact=model_trainer_artifact)
-            #logging.info("Model evaluation succesfully completed")
-
-           # if not model_evaluation_artifact.is_model_accepted:
-               # logging.info(f"Model not accepted.")
-               # return None
-            
-           # model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
-
+            model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
+            logging.info("Model push to s3 succesfully completed")
 
 
         except Exception as e:
